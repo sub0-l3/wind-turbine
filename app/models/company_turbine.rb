@@ -1,4 +1,4 @@
 class CompanyTurbine < ActiveRecord::Base
   belongs_to :company
-  attr_accessible :turbine_model
+  attr_accessible :turbine_model,:company_id
 end
