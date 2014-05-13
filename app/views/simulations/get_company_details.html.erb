@@ -1,0 +1,9 @@
+<div>
+	Select Company:
+	<select id='company_name' >
+		<% @company.each do |x|%>
+		<option value="<%= x.id %>"><%= x.company_name %></option>
+		<% end %>
+	</select>
+	Select Turbine: <select id = 'turbines_dropdown'></select>
+</div>
