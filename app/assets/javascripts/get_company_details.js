@@ -16,8 +16,10 @@ $(function() {
 			dataType : "json",
 			success : function(data) {
 				//console.log(data);
-				$('#turbines_dropdown').html("<option value='" + data[0].id + "'>" + data[0].turbine_model + "</option>");
-				for (var i = 1; i < data.length; i++) {
+				//$('#turbines_dropdown').html("<option value='" + data[0].id + "'>" + data[0].turbine_model + "</option>");
+				$('#turbines_dropdown').html("<option value=''></option>");
+				
+				for (var i = 0; i < data.length; i++) {
 					$('#turbines_dropdown').append("<option value='" + data[i].id + "'>" + data[i].turbine_model + "</option>");
 				}
 

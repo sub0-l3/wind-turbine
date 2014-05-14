@@ -4,6 +4,7 @@
 <div id="content">
 	Select Company:
 	<select id='company_name' >
+		<option value=""></option>
 		<% @company.each do |x|%>
 		<option value="<%= x.id %>"><%= x.company_name %></option>
 		<% end %>
