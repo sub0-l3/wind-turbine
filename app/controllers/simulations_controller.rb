@@ -14,4 +14,15 @@ class SimulationsController < ApplicationController
 
   end
 
+  def get_turbine_graph_data
+    p params[:turbine_id]
+    @graph_data = TurbineDetail.find_all_by_company_turbine_id(params[:turbine_id])
+    
+    respond_to do |format|
+      format.html
+      format.json { render json: @graph_data }
+    end
+
+  end
+
 end

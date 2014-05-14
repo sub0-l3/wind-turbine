@@ -1,5 +1,6 @@
 WindTurbine::Application.routes.draw do
   match "/get_turbine_details" => "simulations#get_turbine_details"
+  match "/get_turbine_graph_data" => "simulations#get_turbine_graph_data"
   root :to=>"simulations#get_company_details"
 
 # The priority is based upon order of creation:
