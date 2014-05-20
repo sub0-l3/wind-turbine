@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140512180831) do
+ActiveRecord::Schema.define(:version => 20140519164157) do
 
   create_table "companies", :force => true do |t|
     t.string   "company_name"
@@ -22,8 +22,14 @@ ActiveRecord::Schema.define(:version => 20140512180831) do
   create_table "company_turbines", :force => true do |t|
     t.string   "turbine_model"
     t.integer  "company_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.float    "alpha"
+    t.float    "beta"
+    t.float    "cutin_velocity"
+    t.float    "rated_power"
+    t.float    "rated_velocity"
+    t.float    "cutout_velocity"
   end
 
   add_index "company_turbines", ["company_id"], :name => "index_company_turbines_on_company_id"
