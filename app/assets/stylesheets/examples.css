@@ -74,10 +74,12 @@ input[type=checkbox] {
 }
 
 .demo-container {
-	box-sizing: border-box;
-	width: 850px;
+	box-sizing: border-box;//
+	width: 850px;//
 	height: 450px;
-	padding: 20px 15px 60px 15px;
+	width: 580px;
+	height: 400px;
+	padding: 20px 15px 60px 15px;//
 	margin: 15px auto 30px auto;
 	border: 1px solid #ddd;
 	background: #fff;
@@ -105,5 +107,13 @@ input[type=checkbox] {
 }
 
 .right {
-	float:right;
+	float: right;
+}
+
+#turbine_form {
+
+}
+
+.text_box_input {
+	width: 50px;
 }

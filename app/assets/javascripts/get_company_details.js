@@ -1,4 +1,39 @@
+var actual_d1=[];
+
 $(function() {
+	
+	//leaflet code starts here.
+			var map = L.map('map').setView([12.9667, 77.5667], 13);
+	
+	MB_ATTR = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+				'Imagery © <a href="http://mapbox.com">Mapbox</a>';
+
+	MB_URL = 'http://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png';
+	L.tileLayer(MB_URL, {attribution: MB_ATTR, id: 'examples.map-20v6611k'}).addTo(map);
+		/*
+		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+		}).addTo(map);
+		*/
+
+
+		var LeafIcon = L.Icon.extend({
+			options: {
+				shadowUrl: '/assets/leaf-shadow.png',
+				iconSize:     [38, 95],
+				shadowSize:   [50, 64],
+				iconAnchor:   [22, 94],
+				shadowAnchor: [4, 62],
+				popupAnchor:  [-3, -76]
+			}
+		});
+
+		var greenIcon = new LeafIcon({iconUrl: '/assets/leaf-red.png'});
+
+		L.marker([12.9667, 77.5667], {icon: greenIcon}).bindPopup("I am a red leaf.").addTo(map);
+	//leaflet code ends here.
+	
 	//select company from dropdown should populate turbine dropdown
 
 	$('#company_name').on('change', function() {
@@ -39,12 +74,12 @@ $(function() {
 			},
 			dataType : "json",
 			success : function(data) {
-				//console.log(data);
+				console.log(data);
 				var d1 = [];
-				for (var i = 0; i < data.length; i++) {
-					d1.push([data[i].wind_speed, data[i].power_output]);
+				for (var i = 0; i < data["graph_data"].length; i++) {
+					d1.push([data["graph_data"][i].wind_speed, data["graph_data"][i].power_output]);
 				}
-
+				actual_d1 = d1;
 				$.plot("#placeholder", [{
 					data : d1,
 					color:'lightblue',
@@ -54,27 +89,27 @@ $(function() {
 					}
 				}]);
 
-					/*
+					
 					 $("#turbine_details").html("<b>Turbine Details</b><br />");
-					 $("#turbine_details").append("Rated power: _ MW \
-					 , Cut-in velocity: _ m/s \
-					 , Cut-out velocity: _ m/s \
-					 , Rated Velocity: _ m/s");
-					 $("#turbine_details").append("<br/>Alpha: _ <br/>Beta: _");
-					 */
+					 $("#turbine_details").append("Rated power: "+ data["p_r"] +"  MW \
+					 , Cut-in velocity: "+ data["v_i"] +"  m/s \
+					 , Cut-out velocity: "+ data["v_o"] +"  m/s \
+					 , Rated Velocity: "+ data["v_r"] +" m/s");
+					 $("#turbine_details").append("<br/>Alpha: "+ data["alpha"] +" <br/>Beta: "+ data["beta"] +" ");
+					 
 
 				$("#turbine_form").html("<form id='form_kc' method='POST' action='/run'> \
 					<table> \
-					<tr><td>K </td><td><input type='text' id='input_k' value='2.08' /> </td></tr> \
-					<tr><td>C </td><td><input type='text' id='input_c' value='3.44' /> </td></tr> \
-					<tr><td>Hub height </td><td><input type='text' id='hub_height' value='80' /> \
-					<td><input type='button' id='submit_kc'  value='Run' /></td></tr>	\
+					<tr><td>K </td><td><input type='text' class='text_box_input' id='input_k' value='2.08' /> </td></tr> \
+					<tr><td>C </td><td><input type='text' class='text_box_input' id='input_c' value='3.44' /> </td></tr> \
+					<tr><td>Hub height </td><td><input type='text' class='text_box_input' id='hub_height' value='80' /> \
+					<td></tr><tr><td></td><td><input type='button' id='submit_kc'  value='Run' /></td></tr>	\
 					</table> \
 					</form>");
 					
 		
 				$("#submit_kc").click(function() {
-					console.log('clicked');
+					//console.log('clicked');
 					//$("#form_kc").submit();
 
 						url = "/run";
@@ -92,15 +127,25 @@ $(function() {
 						dataType : "json",
 						success : function(data) {
 
-							console.log(data);
+							//console.log(data);
 							var d1 = [];
 							
 							for (var i = 0; i < data.v_arr.length; i++) {
 								d1.push([data.v_arr[i], data.p_arr[i]]);
 							}
-
-							$.plot("#placeholder_empirical", [{
+							//console.log(actual_d1.length+"__"+d1.length);
+							//$.plot("#placeholder_empirical", [{
+							$.plot("#placeholder", [{
+								data : actual_d1,
+								label:"Actual",
+								color:'blue',
+								lines : {
+									show : true,
+									fill : true
+								}
+							},{
 								data : d1,
+								label:"Empirical",
 								color:'red',
 								lines : {
 									show : true,
