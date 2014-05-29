@@ -98,7 +98,8 @@ class SimulationsController < ApplicationController
     end
     j =  ((v_r**(k_input-1))/(1-v)**alpha)*(k_input/c)*sum
     @capacity = (val -j)
-
+    @capacity = @capacity.round(2)
+    
     respond_to do |format|
       format.json { render json: {v_arr: @v_arr, p_arr: @p_arr, capacity:@capacity}  }
     end

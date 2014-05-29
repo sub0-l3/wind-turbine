@@ -12,11 +12,15 @@
 	Select Turbine: <select id = 'turbines_dropdown'></select>
 	<br />
 	<br />
-	<div>
-		<div id="map" style="width: 600px; height: 400px"></div>
-		<div id="turbine_form"></div>
+
+	<div class = 'right'>
+	<div id="turbine_details">
 	</div>
-	<div class="demo-container">
+	<div id="capacity" >
+		<br/>
+	</div>
+	</div>
+	<div class="demo-container left">
 		<div>
 			<i>Power Output(KW)</i>
 		</div>
@@ -25,9 +29,6 @@
 			<i>Wind Speed(m/s)</i>
 		</div>
 	</div>
-	<div id="turbine_details">
-
-	</div>
 
 	<!--
 	<div class="demo-container">
@@ -35,7 +36,13 @@
 	</div>
 	-->
 
-	<div id="capacity">
+	<br />
+	<div id='map-wrap'>
+		<div id="turbine_form" class='right'></div>
+		<div id="map" class='left'></div>
+	</div>
+	<div id='disclaimer'>
+		*Disclaimer: 'K' and 'C' values has been generated arbitrarily for simulation purpose.
 		<br/>
 	</div>
 </div>

@@ -1,5 +1,13 @@
 var actual_d1=[];
 
+/**
+ * Returns a random number between min (inclusive) and max (exclusive)
+ */
+function getRandomArbitrary(min, max) {
+    return (Math.random() * (max - min) + min).toFixed(2);
+}
+
+
 $(function() {
 	
 	//leaflet code starts here.
@@ -20,18 +28,27 @@ $(function() {
 
 		var LeafIcon = L.Icon.extend({
 			options: {
-				shadowUrl: '/assets/leaf-shadow.png',
-				iconSize:     [38, 95],
-				shadowSize:   [50, 64],
-				iconAnchor:   [22, 94],
-				shadowAnchor: [4, 62],
+				//shadowUrl: '/assets/leaf-shadow.png',
+				//iconSize:     [38, 95],
+				iconSize:     [55, 55],
+				//shadowSize:   [30, 34],
+				//iconAnchor:   [22, 55],
+				//shadowAnchor: [4, 30],
 				popupAnchor:  [-3, -76]
 			}
 		});
 
-		var greenIcon = new LeafIcon({iconUrl: '/assets/leaf-red.png'});
+		var greenIcon = new LeafIcon({iconUrl: '/assets/wind-mill-icon.png'});
 
-		L.marker([12.9667, 77.5667], {icon: greenIcon}).bindPopup("I am a red leaf.").addTo(map);
+		marker = new L.marker([12.9667, 77.5667], {icon: greenIcon,draggable : true}).bindPopup("Drag me to Hell..").addTo(map);
+        
+            marker.on('dragend', function(event){
+            var marker = event.target;
+            var position = marker.getLatLng();
+            console.log(position);
+            $('#input_k').val(getRandomArbitrary(1.85,3.4));
+             $('#input_c').val(getRandomArbitrary(3.45,8.22));
+    		});
 	//leaflet code ends here.
 	
 	//select company from dropdown should populate turbine dropdown
@@ -92,9 +109,9 @@ $(function() {
 					
 					 $("#turbine_details").html("<b>Turbine Details</b><br />");
 					 $("#turbine_details").append("Rated power: "+ data["p_r"] +"  MW \
-					 , Cut-in velocity: "+ data["v_i"] +"  m/s \
-					 , Cut-out velocity: "+ data["v_o"] +"  m/s \
-					 , Rated Velocity: "+ data["v_r"] +" m/s");
+					 <br /> Cut-in velocity: "+ data["v_i"] +"  m/s \
+					 <br /> Cut-out velocity: "+ data["v_o"] +"  m/s \
+					 <br /> Rated Velocity: "+ data["v_r"] +" m/s");
 					 $("#turbine_details").append("<br/>Alpha: "+ data["alpha"] +" <br/>Beta: "+ data["beta"] +" ");
 					 
 
@@ -103,7 +120,7 @@ $(function() {
 					<tr><td>K </td><td><input type='text' class='text_box_input' id='input_k' value='2.08' /> </td></tr> \
 					<tr><td>C </td><td><input type='text' class='text_box_input' id='input_c' value='3.44' /> </td></tr> \
 					<tr><td>Hub height </td><td><input type='text' class='text_box_input' id='hub_height' value='80' /> \
-					<td></tr><tr><td></td><td><input type='button' id='submit_kc'  value='Run' /></td></tr>	\
+					<td></tr><tr><td></td><td><input type='button' id='submit_kc'  value='Run Simulation' /></td></tr>	\
 					</table> \
 					</form>");
 					
