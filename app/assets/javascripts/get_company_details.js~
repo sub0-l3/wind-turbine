@@ -10,8 +10,6 @@ function getRandomArbitrary(min, max) {
 
 $(function() {
 	
-		
-
 	//leaflet code starts here.
 			var map = L.map('map').setView([12.9667, 77.5667], 13);
 	
@@ -53,8 +51,6 @@ $(function() {
     		});
 	//leaflet code ends here.
 	$("#capacity").hide();
-	
-
 	//select company from dropdown should populate turbine dropdown
 
 	$('#company_name').on('change', function() {
@@ -126,13 +122,12 @@ $(function() {
 					<tr><td>k </td><td><input type='text' class='text_box_input' id='input_k' value='2.08' /> </td></tr> \
 					<tr><td>c </td><td><input type='text' class='text_box_input' id='input_c' value='3.44' /> </td></tr> \
 					<tr><td>Hub Height (m) </td><td><input type='text' class='text_box_input' id='hub_height' value='80' /> \
+					<td></tr><tr><td><input type='button' id='submit_kc'  value='Run Simulation' /></td></tr>	\
 					</table> \
-					<td></tr><input type='button' id='submit_kc' value='Run Simulation' />	\
 					</form>");
-
-				$("#capacity").show();
-				//show the capacity div
-
+			$("#capacity").show(); //show the capacity div
+					
+		
 				$("#submit_kc").click(function() {
 					//console.log('clicked');
 					//$("#form_kc").submit();

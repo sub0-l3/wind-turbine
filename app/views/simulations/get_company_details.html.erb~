@@ -39,9 +39,8 @@
 		<div class = 'right'>
 		<div id="turbine_form"></div>
 		<br />
-		<div id="capacity">
-		Capacity= <span id="num">0</span>%
-		</div>
+		<div id="capacity"></div>
+		Capacity= <div id="num">0</div>%
 		</div>
 		
 		<div id="map" class='left'></div>
