@@ -13,7 +13,7 @@ $(function() {
 		
 
 	//leaflet code starts here.
-			var map = L.map('map').setView([12.9667, 77.5667], 13);
+			var map = L.map('map').setView([13.03, 77.7], 11);
 	
 	MB_ATTR = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
 				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
@@ -42,7 +42,7 @@ $(function() {
 
 		var greenIcon = new LeafIcon({iconUrl: '/assets/wind-mill-icon.png'});
 
-		marker = new L.marker([12.9667, 77.5667], {icon: greenIcon,draggable : true}).bindPopup("I am windmill..").addTo(map);
+		marker = new L.marker([13.03, 77.7], {icon: greenIcon,draggable : true}).bindPopup("I am windmill..").addTo(map);
         
             marker.on('dragend', function(event){
             var marker = event.target;
@@ -114,28 +114,46 @@ $(function() {
 
 					
 					 $("#turbine_details").html("<b>Turbine Details</b><br />");
-					 $("#turbine_details").append("Rated power: "+ data["p_r"] +"  MW \
-					 <br /> Cut-in velocity: "+ data["v_i"] +"  m/s \
-					 <br /> Cut-out velocity: "+ data["v_o"] +"  m/s \
+					 $("#turbine_details").append("Rated Power: "+ data["p_r"] +"  MW \
+					 <br /> Cut-in Velocity: "+ data["v_i"] +"  m/s \
+					 <br /> Cut-out Velocity: "+ data["v_o"] +"  m/s \
 					 <br /> Rated Velocity: "+ data["v_r"] +" m/s");
-					 $("#turbine_details").append("<br/>Alpha: "+ data["alpha"] +" <br/>Beta: "+ data["beta"] +" ");
+					 $("#turbine_details").append("<br/><br/>Empirical Parameters: <br/>(a = "+ data["alpha"] +", b = "+ data["beta"] +" )");
 					 
 
 				$("#turbine_form").html("<form id='form_kc' method='POST' action='/run'> \
 					<table> \
-					<tr><td>k </td><td><input type='text' class='text_box_input' id='input_k' value='2.08' /> </td></tr> \
-					<tr><td>c </td><td><input type='text' class='text_box_input' id='input_c' value='3.44' /> </td></tr> \
+					<tr><td>k </td><td><input type='text' class='text_box_input' id='input_k' value='2.08' /> </td><td class='q-mark' title='chungaa'>?</td></tr> \
+					<tr><td>c  (m/s)</td><td><input type='text' class='text_box_input' id='input_c' value='3.44' /> </td><td class='q-mark' title='hello'>?</td></tr> \
 					<tr><td>Hub Height (m) </td><td><input type='text' class='text_box_input' id='hub_height' value='80' /> \
 					</table> \
 					<td></tr><input type='button' id='submit_kc' value='Run Simulation' />	\
 					</form>");
-
+				$('td').tipsy({fade: true});
 				$("#capacity").show();
 				//show the capacity div
-
 				$("#submit_kc").click(function() {
 					//console.log('clicked');
 					//$("#form_kc").submit();
+				
+					$(".demo-container-weibull").show();
+					//plot the weibull curve here itself
+					var weibull_data = [];
+					var k = $('#input_k').val();
+					var c = $('#input_c').val();
+					for (var i = 0; i < 31; i++) {
+						var temp = (k/c)*Math.pow((i/c),(k-1))*Math.exp(-Math.pow((i/c),k))
+						weibull_data.push([i,temp]);
+					}
+					console.log(weibull_data);
+					$.plot("#placeholder-weibull", [{
+						data : weibull_data,
+						color : 'lightblue',
+						lines : {
+							show : true,
+							fill : true
+						}
+					}]); 
 
 						url = "/run";
 				

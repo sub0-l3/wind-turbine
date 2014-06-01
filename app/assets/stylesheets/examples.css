@@ -2,6 +2,7 @@
 	padding: 0;
 	margin: 0;
 	vertical-align: top;
+	//font-family: 'DejaVu Sans Mono';
 }
 
 body {
@@ -74,9 +75,7 @@ input[type=checkbox] {
 }
 
 .demo-container {
-	box-sizing: border-box;//
-	width: 850px;//
-	height: 450px;
+	box-sizing: border-box;
 	width: 580px;
 	height: 400px;
 	padding: 20px 15px 60px 15px;//
@@ -109,6 +108,16 @@ input[type=checkbox] {
 .right {
 	float: right;
 }
+
+
+
+#turbine_details {
+	font-family: monospace;
+	font-size: large;
+}
+
+
+
 
 #turbine_form {
 	font-size: 12pt;
@@ -152,4 +161,32 @@ input[type=checkbox] {
 
 #submit_kc:hover{
 	background-color: #666666;
+}
+
+.q-mark{
+    font-size: 20px;
+    font-style: normal;
+    font-weight: bolder;
+    padding: 0 3px;	
+    color: sienna;
+}
+
+.demo-container-weibull{
+	box-sizing: border-box;
+	//width: 200px;
+	height: 195px;
+	padding: 8px;
+	margin: 15px auto 30px auto;
+	//border: 1px solid #ddd;
+	background: #fff;
+	background: linear-gradient(#f6f6f6 0, #fff 50px);
+	background: -o-linear-gradient(#f6f6f6 0, #fff 50px);
+	background: -ms-linear-gradient(#f6f6f6 0, #fff 50px);
+	background: -moz-linear-gradient(#f6f6f6 0, #fff 50px);
+	background: -webkit-linear-gradient(#f6f6f6 0, #fff 50px);
+	box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+	-o-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+	-ms-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+	-moz-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+	-webkit-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
